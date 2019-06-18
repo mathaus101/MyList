@@ -1,0 +1,23 @@
+<div>
+  <div>
+    <button class="btn btn-primary" (click)="openDialog('Add');">
+      <fa-icon icon="plus"></fa-icon>Add
+    </button>
+  </div>
+
+  <div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+
+    <div class="example-box" *ngFor ="let item of listService.getItems(); let i = index" cdkDrag>
+        <!-- <div class="example-handle" cdkDragHandle>
+          <fa-icon icon="sort"></fa-icon>      
+        </div> -->
+        <div>
+          <mat-checkbox class="example-margin" 
+          [(ngModel)]="item.ticked"
+          (change)="checked()" [class.ticked]="item.ticked"> {{i+1}}. {{item.text}}</mat-checkbox>
+         
+
+      </div>
+    </div>
+  </div>
+</div>

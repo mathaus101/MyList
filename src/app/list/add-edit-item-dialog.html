@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{data.typeDesc}} Item</h1>
+<div mat-dialog-content>
+        <!-- <mat-form-field>
+                <input matInput [(ngModel)]="data.toDoText">
+              </mat-form-field> -->
+
+      
+  <div class="form-group">
+        <input type="text" class="form-control" required minlength="4" id="newItemText"
+        cdkFocusInitial
+        [(ngModel)]="data.toDoText" placeholder="Enter a new item here.">
+        
+      </div>     
+    
+</div>
+<div mat-dialog-actions>
+  
+  <button class="btn btn-primary" [mat-dialog-close]="data.toDoText" >Ok</button>
+  <button  class="btn" (click)="onNoClick()">Close</button>
+</div>
