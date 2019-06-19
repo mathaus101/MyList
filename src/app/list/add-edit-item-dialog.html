@@ -1,20 +1,21 @@
-<h1 mat-dialog-title>{{data.typeDesc}} Item</h1>
+<h1 mat-dialog-title>{{data.newItem  ? 'Add' : 'Edit'}} Item</h1>
 <div mat-dialog-content>
         <!-- <mat-form-field>
                 <input matInput [(ngModel)]="data.toDoText">
               </mat-form-field> -->
-
       
   <div class="form-group">
         <input type="text" class="form-control" required minlength="4" id="newItemText"
         cdkFocusInitial
-        [(ngModel)]="data.toDoText" placeholder="Enter a new item here.">
+        [(ngModel)]="data.item.text" placeholder="Enter a new item here.">
         
-      </div>     
+      </div>
     
 </div>
+
 <div mat-dialog-actions>
   
-  <button class="btn btn-primary" [mat-dialog-close]="data.toDoText" >Ok</button>
+  <!-- The [mat-dialog-close] ends up inthe 'result' variable-->
+  <button class="btn btn-primary" [mat-dialog-close]="{ data}" type="submit" >Ok</button>
   <button  class="btn" (click)="onNoClick()">Close</button>
 </div>

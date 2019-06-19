@@ -1,13 +1,14 @@
 <div>
   <div>
-    <button class="btn btn-primary" (click)="openDialog('Add');">
+    <button class="btn btn-primary" (click)="openDialog(null)">
       <fa-icon icon="plus"></fa-icon>Add
     </button>
   </div>
 
   <div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
 
-    <div class="example-box" *ngFor ="let item of listService.getItems(); let i = index" cdkDrag>
+    <div class="example-box" *ngFor ="let item of listService.getItems(); let i = index" 
+    cdkDrag (swiperight)="listService.deleteItem(i)" (press)="openDialog(item)">
         <!-- <div class="example-handle" cdkDragHandle>
           <fa-icon icon="sort"></fa-icon>      
         </div> -->

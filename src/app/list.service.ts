@@ -25,7 +25,8 @@ export class ListService {
   }
 
   deleteItem(index) {
-    //this.items.de
+    this.items.splice(index, 1);
+    this.save();
   }
 
   save() {

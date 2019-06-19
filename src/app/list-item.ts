@@ -2,7 +2,7 @@ export class ListItem {
     constructor(
         
         public text: string,
-        public ticked?: boolean
+        public ticked?: boolean,
         
     ) {}
 

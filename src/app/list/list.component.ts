@@ -3,11 +3,19 @@ import { ListService } from '../list.service';
 import { ListItem } from '../list-item';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+// import {
+//   trigger,
+//   state,
+//   style,
+//   animate,
+//   transition,
+//   // ...
+// } from '@angular/animations';
 
 export interface DialogData
 {
-  typeDesc: string;
-  toDoText: string;
+  item: ListItem;
+  newItem?: boolean;
 }
 
 @Component({
@@ -27,11 +35,18 @@ export class ListComponent implements OnInit {
     //this.myList = this.listService.getItems();
   }
 
-  addToList(text: string) {
-    this.listService.addItem(new ListItem(text));
+  // addToList(text: string) {
+  //   this.listService.addItem(new ListItem(text));
+  //   //this.myList.unshift(this.newItem); 
+  
+  // }
+
+  addToList(item: ListItem) {
+    this.listService.addItem(item); 
     //this.myList.unshift(this.newItem); 
   
   }
+
 
   checked() {
     console.log('item checked. saving...');
@@ -42,16 +57,30 @@ export class ListComponent implements OnInit {
     this.listService.moveItem(event.previousIndex, event.currentIndex);    
   }
 
-  openDialog(typeDesc: string) {
+  openDialog(item?: ListItem) {
+
+    if (item == null)
+    {
+      console.log('Null ListItem...')
+      
+    }
+      
     const dialogRef = this.dialog.open(AddEditItemDialog, {
       width: '80vw',
-      data: {typeDesc: typeDesc}
+      data: {item: (item == null) ? new ListItem('', false) : item,
+             newItem: item == null }
     });
 
     dialogRef.afterClosed().subscribe( result => {
       console.log(`Dialog result: ${result}`);
-      if (result) 
-        this.addToList(result);
+      if (result) //result may be null
+      {
+        if (result.newItem)  
+          this.addToList(result.item);
+        else
+          this.listService.save(); //Save change in to listITme referneced by the array
+      }
+
 
       
     });
