@@ -3,6 +3,8 @@ import { ListService } from '../list.service';
 import { ListItem } from '../list-item';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 // import {
 //   trigger,
 //   state,
@@ -15,7 +17,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export interface DialogData
 {
   item: ListItem;
-  newItem?: boolean;
+  toDoText?: string;
+  newItem: boolean;
 }
 
 @Component({
@@ -25,10 +28,11 @@ export interface DialogData
 })
 export class ListComponent implements OnInit {
 
-  
+  private durationInSeconds = 3;
 
   constructor(public listService: ListService,
-              public dialog: MatDialog) { 
+              public dialog: MatDialog,
+              private snackBar: MatSnackBar) { 
   }
 
   ngOnInit() {
@@ -47,6 +51,12 @@ export class ListComponent implements OnInit {
   
   }
 
+  deleteItem(itemIndex: number) {
+    this.listService.deleteItem(itemIndex);
+    this.openDeletedSnackBar();
+    
+  }
+
 
   checked() {
     console.log('item checked. saving...');
@@ -57,17 +67,21 @@ export class ListComponent implements OnInit {
     this.listService.moveItem(event.previousIndex, event.currentIndex);    
   }
 
+  openDeletedSnackBar() {
+    this.snackBar.openFromComponent(ItemDeletedComponent, {
+      duration: this.durationInSeconds * 1000,
+    });  
+  }
+
   openDialog(item?: ListItem) {
 
     if (item == null)
-    {
       console.log('Null ListItem...')
-      
-    }
-      
+
     const dialogRef = this.dialog.open(AddEditItemDialog, {
       width: '80vw',
       data: {item: (item == null) ? new ListItem('', false) : item,
+             toDoText: ( item == null ) ? '' : item.text,  // need separate var to hold the text
              newItem: item == null }
     });
 
@@ -75,8 +89,12 @@ export class ListComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
       if (result) //result may be null
       {
-        if (result.newItem)  
+        result.item.text = result.toDoText; //Make the change official (only update the object if user Okays it)
+         
+        if (result.newItem)            
           this.addToList(result.item);
+
+          
         else
           this.listService.save(); //Save change in to listITme referneced by the array
       }
@@ -102,5 +120,16 @@ export class AddEditItemDialog {
   }
   
 }
+
+@Component({
+  selector: 'deleted-notification',
+  templateUrl: 'deleted-notification.html',
+  styles: [`
+    .deleted-notification {
+      color: hotpink;
+    }
+  `],
+})
+export class ItemDeletedComponent {}
 
 

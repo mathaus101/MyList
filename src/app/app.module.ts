@@ -11,19 +11,24 @@ import { faCoffee, faPlus, faSort } from '@fortawesome/free-solid-svg-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ListComponent, AddEditItemDialog } from './list/list.component';
+import { ListComponent, AddEditItemDialog, ItemDeletedComponent } from './list/list.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import { StorageServiceModule } from 'ngx-webstorage-service';
 
 @NgModule({
   entryComponents: [
     ListComponent,
     AddEditItemDialog,
+    ItemDeletedComponent
+
   
   ],  
   declarations: [
     AppComponent,
     ListComponent,
-    AddEditItemDialog
+    AddEditItemDialog,
+    ItemDeletedComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +38,8 @@ import { StorageServiceModule } from 'ngx-webstorage-service';
     FormsModule,
     FontAwesomeModule,
     StorageServiceModule,
+    MatSnackBarModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

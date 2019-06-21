@@ -1,5 +1,5 @@
 <div>
-  <div>
+  <div class="top">
     <button class="btn btn-primary" (click)="openDialog(null)">
       <fa-icon icon="plus"></fa-icon>Add
     </button>
@@ -8,17 +8,20 @@
   <div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
 
     <div class="example-box" *ngFor ="let item of listService.getItems(); let i = index" 
-    cdkDrag (swiperight)="listService.deleteItem(i)" (press)="openDialog(item)">
+    cdkDrag [cdkDragStartDelay]="1000" (swiperight)="deleteItem(i)" >
         <!-- <div class="example-handle" cdkDragHandle>
           <fa-icon icon="sort"></fa-icon>      
         </div> -->
         <div>
-          <mat-checkbox class="example-margin" 
-          [(ngModel)]="item.ticked"
-          (change)="checked()" [class.ticked]="item.ticked"> {{i+1}}. {{item.text}}</mat-checkbox>
+          <mat-checkbox class="example-margin sizeCheckbox" 
+          [(ngModel)]="item.ticked" (click)="$event.stopPropagation()"
+          (change)="checked()" [class.ticked]="item.ticked"></mat-checkbox>
+        
+          {{i+1}}. {{item.text}}
+        </div>
          
 
-      </div>
+      
     </div>
   </div>
 </div>

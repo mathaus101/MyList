@@ -7,7 +7,7 @@
   <div class="form-group">
         <input type="text" class="form-control" required minlength="4" id="newItemText"
         cdkFocusInitial
-        [(ngModel)]="data.item.text" placeholder="Enter a new item here.">
+        [(ngModel)]="data.toDoText" placeholder="Enter a new item here.">
         
       </div>
     
@@ -16,6 +16,6 @@
 <div mat-dialog-actions>
   
   <!-- The [mat-dialog-close] ends up inthe 'result' variable-->
-  <button class="btn btn-primary" [mat-dialog-close]="{ data}" type="submit" >Ok</button>
+  <button class="btn btn-primary" [mat-dialog-close]="data" type="submit" >Ok</button>
   <button  class="btn" (click)="onNoClick()">Close</button>
 </div>

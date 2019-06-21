@@ -1,5 +1,6 @@
 .example-list {
     width: 80vw;
+    max-width: 600px;
     border: solid 1px #ccc;
     min-height: 60px;
     display: block;
@@ -20,8 +21,12 @@
     cursor: move;
     background: white;
     font-size: 14px;
+    
   }
   
+  .top {
+    padding-bottom: 1em;
+  }
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
@@ -43,6 +48,14 @@
   
   .example-box:last-child {
     border: none;
+  }
+  mat-checkbox ::ng-deep .mat-checkbox-inner-container {
+    width: 30px;
+    height: 30px;
+  }
+
+  .checkboxDiv {
+    border-right: 1px solid grey;
   }
 
   .ticked {
