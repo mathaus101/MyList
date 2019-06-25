@@ -5,10 +5,11 @@
     </button>
   </div>
 
-  <div class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div @list class="example-list" cdkDropList (cdkDropListDropped)="drop($event)">
 
     <div class="example-box" *ngFor ="let item of listService.getItems(); let i = index" 
-    cdkDrag [cdkDragStartDelay]="1000" (swiperight)="deleteItem(i)" (click)="openDialog(item)">
+    cdkDrag [cdkDragStartDelay]="1000" (swiperight)="deleteItem(i)" (click)="openDialog(item)"
+    @items>  <!-- @items is a trigger called on each item div generated-->
         <!-- <div class="example-handle" cdkDragHandle>
           <fa-icon icon="sort"></fa-icon>      
         </div> -->
